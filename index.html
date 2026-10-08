@@ -137,33 +137,26 @@ section{position:relative}
 .tl-row:first-child .tl-axis::before{top:20px}
 .tl-row:last-child .tl-axis::before{bottom:calc(100% - 20px)}
 
-/* ===== 相册 ===== */
-.gallery{background:#EFE7D6}
-.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
-.gallery-grid .g-tall{grid-column:1 / -1;aspect-ratio:3/1.6}
-.g-item{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#E0D5BE}
-.g-item::before{content:"";position:absolute;inset:0;background-position:center;background-size:cover;filter:blur(8px);transform:scale(1.12)}
-.g-banquet::before{background-image:url("data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAACQBACdASoYABAAPwForE6rJqQiMAgBYCAJYgCdAYxE1UNZPAwSu8xMvpMAIYAA/sFqdCl5IOQRaF6Zk+nrxHei4wW+imYkyJv+7cp5EzwaUJaNk0ehh071r/7El8woc1FfpGaRwekJXpuksmuIPc9F2tBY32+k/+5aC9yrfXqpJciihK5kQnfrUCC5K7pve2Sw5XpYXXdoAA==")}
-.g-detail::before{background-image:url("data:image/webp;base64,UklGRtgAAABXRUJQVlA4IMwAAABQBQCdASoYABgAPwF2slQrJyQjKAgBYCAJYwC7AY0qM1cPdI5Xig9SLDenB+GRFfC+sgAA/j3fhfhcE7jdmeRr9Kq9Ve76DrGFkr1jAqBaJhWav5ZfkRiqOH3bkHMPK82E+i0quZ1kMPqFZ9aQ89p38vaLUxIJaV2n5xgBquwLvuqVu7lZs5+GlxpcBOeOQKvMF2Q3dVwPDkEEVvDntX0WzpTSL1suKQnFH5fbHqbNRc+UrwDsCBQaDA/FH1Sc/VAl1s80mf0oWWoAAAA=")}
-.g-item img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;opacity:1;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .7s ease}
-.g-item img.is-pending{opacity:0}
-.g-item:hover img{transform:scale(1.04)}
-.g-badge{position:absolute;z-index:2;left:12px;bottom:12px;background:rgba(36,56,46,.78);color:#F6F1E7;font-size:11px;letter-spacing:.2em;padding:6px 12px;border-radius:999px}
-.gallery-note{text-align:center;font-size:13px;color:#7A6F5C;margin-top:20px;font-weight:300;letter-spacing:.08em}
+/* ===== 婚纱照故事章节 ===== */
+.story .sec-sub{max-width:26em;margin-left:auto;margin-right:auto}
+.ph-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:32px}
+.ph{position:relative;border-radius:12px;overflow:hidden;background:#E0D5BE;border:1px solid var(--line);cursor:zoom-in}
+.ph img{width:100%;height:100%;object-fit:cover;aspect-ratio:2/3;opacity:1;transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1)}
+.ph img.is-pending{opacity:0}
+.ph--wide{grid-column:1 / -1}
+.ph--wide img{aspect-ratio:3/2}
+.ph:hover img{transform:scale(1.03)}
 
-/* ===== 婚纱瀑布流 ===== */
-.gallery-sub{text-align:center;margin-top:52px}
-.gallery-sub .sec-eyebrow{margin-bottom:10px}
-.gallery-sub h3{font-family:var(--serif);font-size:clamp(20px,5.4vw,26px);color:var(--deep);letter-spacing:.16em;font-weight:600}
-.gallery-sub p{font-size:12px;color:#8A7F6B;letter-spacing:.14em;margin-top:8px;font-weight:300}
-.masonry{columns:2;column-gap:10px;margin-top:28px}
-.m-item{position:relative;break-inside:avoid;margin-bottom:10px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#E0D5BE;cursor:zoom-in}
-.m-item img{width:100%;height:auto;display:block;opacity:1;transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1)}
-.m-item img.is-pending{opacity:0}
-.m-item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(36,56,46,.28));opacity:0;transition:opacity .4s ease}
-.m-item:hover img{transform:scale(1.03)}
-.m-item:hover::after{opacity:1}
-@media(min-width:768px){.masonry{columns:3;column-gap:14px}.m-item{margin-bottom:14px}}
+/* 章节背景交替：纸色 → 暖米 → 喜庆暖红 → 城堡深绿 */
+.story--vow{background:#EFE7D6}
+.story--red{background:linear-gradient(180deg,#F4E8E0,#EFE1D8)}
+.story--castle{background:var(--deep);color:#E9E4D8}
+.story--castle .sec-title{color:#F6F1E7}
+.story--castle .sec-sub{color:#BEC8C0}
+.story--castle .sec-eyebrow{color:var(--gold)}
+.story--castle .sec-eyebrow::before,.story--castle .sec-eyebrow::after{background:rgba(184,145,90,.55)}
+.story--castle .ph{border-color:rgba(246,241,231,.14);box-shadow:0 10px 30px rgba(0,0,0,.32)}
+@media(min-width:768px){.ph-grid{gap:14px}.ph{border-radius:14px}}
 
 /* ===== 全屏灯箱 ===== */
 .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(18,24,20,.95);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease;padding:20px}
@@ -235,6 +228,22 @@ section{position:relative}
   </div>
 </section>
 
+<!-- ===== 故事 · 第一章 初见 ===== -->
+<section class="story sec-pad" id="ch1">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">CHAPTER ONE</div>
+    <h2 class="sec-title reveal">初见</h2>
+    <p class="sec-sub reveal">光影落在白纱上，一如初见你时的心动</p>
+    <div class="ph-grid">
+      <figure class="ph ph--wide reveal"><img src="assets/gallery/g01.webp" data-full="assets/gallery/g01.webp" alt="婚纱照：窗前白纱合影" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+      <figure class="ph reveal"><img src="assets/gallery/g02.webp" data-full="assets/gallery/g02.webp" alt="婚纱照：咖色背景下的全身合影" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph reveal"><img src="assets/gallery/g03.webp" data-full="assets/gallery/g03.webp" alt="婚纱照：护墙板前手持绿花合影" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph reveal"><img src="assets/gallery/g04.webp" data-full="assets/gallery/g04.webp" alt="婚纱照：新娘单人挥手" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph reveal"><img src="assets/gallery/g11.webp" data-full="assets/gallery/g11.webp" alt="婚纱照：刺绣头纱特写" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 时间地点 ===== -->
 <section class="where sec-pad" id="where">
   <div class="wrap">
@@ -281,6 +290,20 @@ section{position:relative}
   </div>
 </section>
 
+<!-- ===== 故事 · 第二章 盟誓 ===== -->
+<section class="story story--vow sec-pad" id="ch2">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">CHAPTER TWO</div>
+    <h2 class="sec-title reveal">盟誓</h2>
+    <p class="sec-sub reveal">单膝跪地的那一刻，便决定了一生</p>
+    <div class="ph-grid">
+      <figure class="ph reveal"><img src="assets/gallery/g10.webp" data-full="assets/gallery/g10.webp" alt="婚纱照：拱窗光影下并肩" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph reveal"><img src="assets/gallery/g09.webp" data-full="assets/gallery/g09.webp" alt="婚纱照：新郎单膝跪地求婚" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph ph--wide reveal"><img src="assets/gallery/g08.webp" data-full="assets/gallery/g08.webp" alt="领证官宣：新人手持结婚证" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 流程 ===== -->
 <section class="sec-pad" id="program">
   <div class="wrap">
@@ -311,46 +334,31 @@ section{position:relative}
   </div>
 </section>
 
-<!-- ===== 相册 ===== -->
-<section class="gallery sec-pad" id="gallery">
+<!-- ===== 故事 · 第三章 红妆 ===== -->
+<section class="story story--red sec-pad" id="ch3">
   <div class="wrap">
-    <div class="sec-eyebrow reveal">MEMORY</div>
-    <h2 class="sec-title reveal">我们的纪念</h2>
-    <div class="gallery-grid">
-      <div class="g-item reveal g-tall g-banquet">
-        <img src="assets/banquet.webp" alt="婚礼宴会厅布置" width="900" height="600" loading="lazy" decoding="async">
-        <span class="g-badge">宴会厅</span>
-      </div>
-      <div class="g-item reveal g-detail">
-        <img src="assets/detail.webp" alt="婚礼细节布置" width="800" height="800" loading="lazy" decoding="async">
-        <span class="g-badge">手捧花与戒指引</span>
-      </div>
-      <div class="g-item reveal">
-        <img src="assets/hero.webp" alt="婚礼庄园外景" width="900" height="1200" loading="lazy" decoding="async">
-        <span class="g-badge">天鹅堡庄园</span>
-      </div>
+    <div class="sec-eyebrow reveal">CHAPTER THREE</div>
+    <h2 class="sec-title reveal">红妆</h2>
+    <p class="sec-sub reveal">中国红，是我们藏不住的欢喜</p>
+    <div class="ph-grid">
+      <figure class="ph reveal"><img src="assets/gallery/g05.webp" data-full="assets/gallery/g05.webp" alt="婚纱照：红底手持马蹄莲" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph reveal"><img src="assets/gallery/g06.webp" data-full="assets/gallery/g06.webp" alt="婚纱照：红底俏皮互动" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph ph--wide reveal"><img src="assets/gallery/g07.webp" data-full="assets/gallery/g07.webp" alt="婚纱照：红底挥手致意" width="1600" height="1067" loading="lazy" decoding="async"></figure>
     </div>
-    <div class="gallery-sub reveal">
-      <div class="sec-eyebrow">WEDDING PHOTOS</div>
-      <h3>婚纱精选</h3>
-      <p>每一帧，都是我们相爱的模样</p>
-    </div>
-    <div class="masonry" id="masonry">
-      <div class="m-item reveal"><img src="assets/gallery/g01.webp" data-full="assets/gallery/g01.webp" alt="婚纱照：新人窗前合影" width="1600" height="1067" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g02.webp" data-full="assets/gallery/g02.webp" alt="婚纱照：新人全身合影" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g03.webp" data-full="assets/gallery/g03.webp" alt="婚纱照：新娘手捧花与新郎合影" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g04.webp" data-full="assets/gallery/g04.webp" alt="婚纱照：新娘单人挥手" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g05.webp" data-full="assets/gallery/g05.webp" alt="婚纱照：红底背景新人含情对视" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g06.webp" data-full="assets/gallery/g06.webp" alt="婚纱照：红底背景新人俏皮互动" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g07.webp" data-full="assets/gallery/g07.webp" alt="婚纱照：红底背景新人挥手致意" width="1600" height="1067" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g08.webp" data-full="assets/gallery/g08.webp" alt="领证官宣：新人手持结婚证" width="1600" height="1067" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g09.webp" data-full="assets/gallery/g09.webp" alt="婚纱照：新郎单膝跪地求婚" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g10.webp" data-full="assets/gallery/g10.webp" alt="婚纱照：拱窗光影下的新人" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g11.webp" data-full="assets/gallery/g11.webp" alt="婚纱照：刺绣头纱特写" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g12.webp" data-full="assets/gallery/g12.webp" alt="婚纱照：天鹅堡庄园城堡前合影" width="1600" height="1067" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g13.webp" data-full="assets/gallery/g13.webp" alt="婚纱照：鲜花拱门前相拥" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g14.webp" data-full="assets/gallery/g14.webp" alt="婚纱照：鲜花拱门前合影" width="1067" height="1600" loading="lazy" decoding="async"></div>
-      <div class="m-item reveal"><img src="assets/gallery/g15.webp" data-full="assets/gallery/g15.webp" alt="婚纱照：新郎城堡前单人照" width="1600" height="1067" loading="lazy" decoding="async"></div>
+  </div>
+</section>
+
+<!-- ===== 故事 · 第四章 赴约 ===== -->
+<section class="story story--castle sec-pad" id="ch4">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">CHAPTER FOUR</div>
+    <h2 class="sec-title reveal">赴约</h2>
+    <p class="sec-sub reveal">城堡为证，花开成海，我们如约而至</p>
+    <div class="ph-grid">
+      <figure class="ph ph--wide reveal"><img src="assets/gallery/g12.webp" data-full="assets/gallery/g12.webp" alt="婚纱照：城堡前合影" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+      <figure class="ph reveal"><img src="assets/gallery/g13.webp" data-full="assets/gallery/g13.webp" alt="婚纱照：鲜花拱门前相拥" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph reveal"><img src="assets/gallery/g14.webp" data-full="assets/gallery/g14.webp" alt="婚纱照：花门前甩动裙摆" width="1067" height="1600" loading="lazy" decoding="async"></figure>
+      <figure class="ph ph--wide reveal"><img src="assets/gallery/g15.webp" data-full="assets/gallery/g15.webp" alt="婚纱照：新郎城堡前单人照" width="1600" height="1067" loading="lazy" decoding="async"></figure>
     </div>
   </div>
 </section>
@@ -462,19 +470,9 @@ section{position:relative}
     else heroFull.addEventListener("load", function(){ heroFull.classList.add("is-in"); });
   }
 
-  /* 相册懒加载图片：未加载时露出模糊占位，加载完成淡入（出错也解除隐藏） */
-  var galleryImgs = document.querySelectorAll(".g-item img");
-  galleryImgs.forEach(function (img) {
-    if (img.complete || img.getAttribute("loading") !== "lazy") return;
-    img.classList.add("is-pending");
-    var reveal = function () { img.classList.remove("is-pending"); };
-    img.addEventListener("load", reveal);
-    img.addEventListener("error", reveal);
-  });
-
-  /* 瀑布流图片：未加载时隐藏，加载后淡入 */
-  var masonryImgs = document.querySelectorAll("#masonry img");
-  masonryImgs.forEach(function (img) {
+  /* 故事章节图片：未加载时隐藏，加载后淡入（出错也解除隐藏） */
+  var storyImgs = document.querySelectorAll(".story .ph img");
+  storyImgs.forEach(function (img) {
     if (img.complete && img.naturalWidth > 0) return;
     img.classList.add("is-pending");
     var reveal = function () { img.classList.remove("is-pending"); };
@@ -497,8 +495,8 @@ section{position:relative}
     document.body.style.overflow = "";
     setTimeout(function(){ lightbox.hidden = true; lightboxImg.src = ""; }, 300);
   }
-  document.getElementById("masonry").addEventListener("click", function(ev){
-    var img = ev.target.closest("img");
+  document.addEventListener("click", function(ev){
+    var img = ev.target.closest(".story .ph img");
     if (img) openLightbox(img.getAttribute("data-full") || img.src, img.alt);
   });
   document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
