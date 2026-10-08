@@ -151,6 +151,28 @@ section{position:relative}
 .g-badge{position:absolute;z-index:2;left:12px;bottom:12px;background:rgba(36,56,46,.78);color:#F6F1E7;font-size:11px;letter-spacing:.2em;padding:6px 12px;border-radius:999px}
 .gallery-note{text-align:center;font-size:13px;color:#7A6F5C;margin-top:20px;font-weight:300;letter-spacing:.08em}
 
+/* ===== 婚纱瀑布流 ===== */
+.gallery-sub{text-align:center;margin-top:52px}
+.gallery-sub .sec-eyebrow{margin-bottom:10px}
+.gallery-sub h3{font-family:var(--serif);font-size:clamp(20px,5.4vw,26px);color:var(--deep);letter-spacing:.16em;font-weight:600}
+.gallery-sub p{font-size:12px;color:#8A7F6B;letter-spacing:.14em;margin-top:8px;font-weight:300}
+.masonry{columns:2;column-gap:10px;margin-top:28px}
+.m-item{position:relative;break-inside:avoid;margin-bottom:10px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#E0D5BE;cursor:zoom-in}
+.m-item img{width:100%;height:auto;display:block;opacity:1;transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1)}
+.m-item img.is-pending{opacity:0}
+.m-item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(36,56,46,.28));opacity:0;transition:opacity .4s ease}
+.m-item:hover img{transform:scale(1.03)}
+.m-item:hover::after{opacity:1}
+@media(min-width:768px){.masonry{columns:3;column-gap:14px}.m-item{margin-bottom:14px}}
+
+/* ===== 全屏灯箱 ===== */
+.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(18,24,20,.95);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease;padding:20px}
+.lightbox.is-open{opacity:1;visibility:visible}
+.lightbox img{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 12px 60px rgba(0,0,0,.5);transform:scale(.96);transition:transform .3s ease}
+.lightbox.is-open img{transform:scale(1)}
+.lightbox-close{position:absolute;top:calc(16px + env(safe-area-inset-top));right:18px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(246,241,231,.5);background:transparent;color:#F6F1E7;font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center}
+.lightbox-hint{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:rgba(246,241,231,.6);font-size:12px;letter-spacing:.2em;font-weight:300}
+
 /* ===== 尾页 ===== */
 .finale{position:relative;background:var(--deep-2);color:#F6F1E7;text-align:center;overflow:hidden;padding:88px 26px calc(88px + env(safe-area-inset-bottom))}
 .finale::before{content:"";position:absolute;inset:0;opacity:.16;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath d='M200 300C120 250 60 210 60 150a90 90 0 0 1 180 0c0 60-60 100-40 150z' fill='none' stroke='%23B8915A' stroke-width='1'/%3E%3Ccircle cx='200' cy='150' r='3' fill='%23B8915A'/%3E%3C/svg%3E");background-position:center;background-size:420px}
@@ -308,9 +330,37 @@ section{position:relative}
         <span class="g-badge">天鹅堡庄园</span>
       </div>
     </div>
-    <p class="gallery-note">更多属于我们的照片，正在路上 · 敬请期待</p>
+    <div class="gallery-sub reveal">
+      <div class="sec-eyebrow">WEDDING PHOTOS</div>
+      <h3>婚纱精选</h3>
+      <p>每一帧，都是我们相爱的模样</p>
+    </div>
+    <div class="masonry" id="masonry">
+      <div class="m-item reveal"><img src="assets/gallery/g01.webp" data-full="assets/gallery/g01.webp" alt="婚纱照：新人窗前合影" width="1600" height="1067" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g02.webp" data-full="assets/gallery/g02.webp" alt="婚纱照：新人全身合影" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g03.webp" data-full="assets/gallery/g03.webp" alt="婚纱照：新娘手捧花与新郎合影" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g04.webp" data-full="assets/gallery/g04.webp" alt="婚纱照：新娘单人挥手" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g05.webp" data-full="assets/gallery/g05.webp" alt="婚纱照：红底背景新人含情对视" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g06.webp" data-full="assets/gallery/g06.webp" alt="婚纱照：红底背景新人俏皮互动" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g07.webp" data-full="assets/gallery/g07.webp" alt="婚纱照：红底背景新人挥手致意" width="1600" height="1067" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g08.webp" data-full="assets/gallery/g08.webp" alt="领证官宣：新人手持结婚证" width="1600" height="1067" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g09.webp" data-full="assets/gallery/g09.webp" alt="婚纱照：新郎单膝跪地求婚" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g10.webp" data-full="assets/gallery/g10.webp" alt="婚纱照：拱窗光影下的新人" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g11.webp" data-full="assets/gallery/g11.webp" alt="婚纱照：刺绣头纱特写" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g12.webp" data-full="assets/gallery/g12.webp" alt="婚纱照：天鹅堡庄园城堡前合影" width="1600" height="1067" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g13.webp" data-full="assets/gallery/g13.webp" alt="婚纱照：鲜花拱门前相拥" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g14.webp" data-full="assets/gallery/g14.webp" alt="婚纱照：鲜花拱门前合影" width="1067" height="1600" loading="lazy" decoding="async"></div>
+      <div class="m-item reveal"><img src="assets/gallery/g15.webp" data-full="assets/gallery/g15.webp" alt="婚纱照：新郎城堡前单人照" width="1600" height="1067" loading="lazy" decoding="async"></div>
+    </div>
   </div>
 </section>
+
+<!-- 全屏查看灯箱 -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="照片全屏查看" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="关闭">×</button>
+  <img id="lightboxImg" src="" alt="">
+  <p class="lightbox-hint">点击任意处关闭</p>
+</div>
 
 <!-- ===== 尾页 ===== -->
 <footer class="finale" id="bottom">
@@ -420,6 +470,43 @@ section{position:relative}
     var reveal = function () { img.classList.remove("is-pending"); };
     img.addEventListener("load", reveal);
     img.addEventListener("error", reveal);
+  });
+
+  /* 瀑布流图片：未加载时隐藏，加载后淡入 */
+  var masonryImgs = document.querySelectorAll("#masonry img");
+  masonryImgs.forEach(function (img) {
+    if (img.complete && img.naturalWidth > 0) return;
+    img.classList.add("is-pending");
+    var reveal = function () { img.classList.remove("is-pending"); };
+    img.addEventListener("load", reveal);
+    img.addEventListener("error", reveal);
+  });
+
+  /* 全屏灯箱：点击照片打开，点击关闭按钮/遮罩/返回键关闭 */
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightboxImg");
+  function openLightbox(src, alt){
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || "";
+    lightbox.hidden = false;
+    requestAnimationFrame(function(){ lightbox.classList.add("is-open"); });
+    document.body.style.overflow = "hidden";
+  }
+  function closeLightbox(){
+    lightbox.classList.remove("is-open");
+    document.body.style.overflow = "";
+    setTimeout(function(){ lightbox.hidden = true; lightboxImg.src = ""; }, 300);
+  }
+  document.getElementById("masonry").addEventListener("click", function(ev){
+    var img = ev.target.closest("img");
+    if (img) openLightbox(img.getAttribute("data-full") || img.src, img.alt);
+  });
+  document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function(ev){
+    if (ev.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", function(ev){
+    if (ev.key === "Escape" && !lightbox.hidden) closeLightbox();
   });
 
   /* Service Worker：二次访问走本地缓存，弱网秒开 */

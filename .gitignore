@@ -1,0 +1,10 @@
+# Tencent Cloud EdgeOne
+.env
+.edgeone/*
+.tef_dist/*
+
+# 原始高清照片（已压缩为 webp 用于网页，原图不入库）
+图片/
+
+# macOS
+.DS_Store

@@ -1,13 +1,11 @@
 /* 婚礼邀请函 Service Worker
    策略：HTML 网络优先（内容更新即时生效）；静态资源缓存优先 + 后台更新（二次秒开）
    注意：替换图片/音乐后，请把下面的 CACHE 版本号 +1 */
-var CACHE = "wedding-v2";
+var CACHE = "wedding-v3";
+/* 仅预缓存页面骨架；相册图片数量大，改为浏览时按需进入缓存 */
 var PRECACHE = [
   "./",
-  "./index.html",
-  "./assets/hero.webp",
-  "./assets/banquet.webp",
-  "./assets/detail.webp"
+  "./index.html"
 ];
 
 self.addEventListener("install", function (e) {
