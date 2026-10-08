@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2E4438">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="丁俊杰 · 向美倩 婚礼邀请｜2026年10月20日 星期二 · 荣悦台天鹅堡婚礼庄园（安徽省芜湖市鸠江区罗兰小镇）。诚邀您见证我们的幸福时刻。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="丁俊杰 · 向美倩 婚礼邀请">
+<meta property="og:description" content="2026年10月20日 · 荣悦台天鹅堡婚礼庄园 · 诚邀见证">
+<meta property="og:image" content="assets/hero.webp">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<title>丁俊杰 · 向美倩 婚礼邀请</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%23B8915A' stroke-width='3'/%3E%3Cpath d='M16 23c-5-3.4-8-6-8-9.4A4.6 4.6 0 0 1 16 10a4.6 4.6 0 0 1 8 3.6c0 3.4-3 6-8 9.4z' fill='%23B8915A'/%3E%3C/svg%3E">
+
+<!-- 首屏 LCP：hero 背景图优先加载 -->
+<link rel="preload" as="image" href="assets/hero.webp">
+
+<style>
+:root{
+  --paper:#F6F1E7;
+  --ink:#3E3629;
+  --deep:#2E4438;
+  --deep-2:#24382E;
+  --gold:#B8915A;
+  --gold-soft:#E8D9BF;
+  --line:#D9C9AC;
+  /* 纯系统字体栈，零网络请求 */
+  --serif:"Songti SC","STSong","STZhongsong","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Heiti SC","Noto Sans CJK SC",-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.7;-webkit-font-smoothing:antialiased}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.045;z-index:998;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ===== 音乐按钮 ===== */
+.music-btn{position:fixed;top:calc(14px + env(safe-area-inset-top));right:16px;z-index:900;width:44px;height:44px;border-radius:50%;background:rgba(246,241,231,.92);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(62,54,41,.12)}
+.music-btn svg{width:20px;height:20px;fill:var(--deep);stroke:var(--deep)}
+.music-btn .ic-pause{display:none}
+.music-btn[aria-pressed="true"] .ic-play{display:none}
+.music-btn[aria-pressed="true"] .ic-pause{display:block}
+.music-spin{animation:spin 5s linear infinite}
+.music-btn.is-loading .music-spin{animation-duration:.8s}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== 首屏 ===== */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#FDFAF3;overflow:hidden;padding:60px 24px calc(60px + env(safe-area-inset-bottom))}
+.hero-bg{position:absolute;inset:0;z-index:-1;background-size:cover;background-position:center 30%;background-image:url("assets/hero.webp");transform:scale(1.04);animation:heroZoom 8s ease-out forwards}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(24,32,26,.38) 0%,rgba(24,32,26,.16) 45%,rgba(24,32,26,.62) 100%)}
+.hero-en{font-family:var(--sans);font-weight:300;letter-spacing:.42em;font-size:clamp(11px,2.8vw,14px);text-transform:uppercase;opacity:.92}
+.hero-line{width:64px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:22px auto}
+.hero-names{font-family:var(--serif);font-weight:600;font-size:clamp(34px,9vw,52px);letter-spacing:.14em;line-height:1.35;margin-top:6px}
+.hero-names .and{display:inline-block;margin:0 .2em;font-size:.5em;vertical-align:.35em;color:var(--gold)}
+.hero-date{font-family:var(--serif);letter-spacing:.28em;font-size:clamp(13px,3.4vw,16px);margin-top:26px}
+.hero-date b{color:var(--gold);font-weight:600}
+.countdown{display:flex;gap:10px;margin-top:22px;justify-content:center}
+.cd-item{min-width:56px;padding:8px 6px;background:rgba(253,250,243,.14);border:1px solid rgba(253,250,243,.28);border-radius:8px;backdrop-filter:blur(2px)}
+.cd-num{font-family:var(--serif);font-weight:600;font-size:22px;font-variant-numeric:tabular-nums}
+.cd-label{font-size:10px;letter-spacing:.2em;opacity:.82;margin-top:2px}
+.hero-scroll{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;opacity:.85;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero-scroll svg{width:16px;height:16px;stroke:var(--gold);animation:float 2.2s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(6px)}}
+.fade-up{opacity:0;animation:fadeUp .9s cubic-bezier(.22,1,.36,1) forwards}
+.d1{animation-delay:.15s}.d2{animation-delay:.35s}.d3{animation-delay:.55s}.d4{animation-delay:.8s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ===== 通用章节 ===== */
+.wrap{max-width:640px;margin:0 auto;padding:0 24px}
+section{position:relative}
+.sec-pad{padding:72px 0}
+.sec-eyebrow{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--gold);font-size:12px;letter-spacing:.34em;font-weight:500}
+.sec-eyebrow::before,.sec-eyebrow::after{content:"";width:30px;height:1px;background:var(--gold-soft)}
+.sec-title{font-family:var(--serif);font-weight:600;font-size:clamp(24px,6vw,30px);text-align:center;margin-top:14px;letter-spacing:.1em}
+.sec-sub{text-align:center;color:#7A6F5C;font-size:14px;margin-top:10px;font-weight:300}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ===== 邀请语 ===== */
+.invite{text-align:center;padding:88px 30px}
+.invite-q{font-family:var(--serif);font-size:clamp(17px,4.6vw,20px);line-height:2.15;color:#54493A;font-weight:500}
+.invite-q em{font-style:normal;color:var(--deep);font-weight:600}
+.invite-sign{font-family:var(--serif);letter-spacing:.24em;color:var(--gold);font-size:15px;margin-top:36px}
+.invite-sign span{display:inline-block;margin:0 12px;color:var(--ink);font-weight:600;color:#4A3F35}
+
+/* ===== 时间地点 ===== */
+.where{background:linear-gradient(180deg,var(--paper),#EFE7D6)}
+.cards{display:flex;flex-direction:column;gap:14px;margin-top:34px}
+.card{border:1px solid var(--line);border-radius:14px;padding:22px 20px;background:rgba(253,250,243,.86);display:flex;gap:16px;align-items:flex-start}
+.card-ic{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold-soft);background:#FBF6EA;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.card-ic svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.6}
+.card h3{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--deep);letter-spacing:.08em}
+.card .main{font-size:16px;font-weight:500;margin-top:6px;color:#3E3629}
+.card .sub{font-size:13px;color:#7A6F5C;margin-top:4px;font-weight:300}
+
+/* 本地化地图占位：纯装饰，无第三方瓦片 */
+.map-placeholder{margin-top:16px;border-radius:14px;border:1px solid var(--line);height:220px;position:relative;overflow:hidden;background:
+  radial-gradient(circle at 30% 40%, rgba(184,145,90,.10), transparent 60%),
+  radial-gradient(circle at 75% 70%, rgba(46,68,56,.08), transparent 55%),
+  linear-gradient(135deg,#EFE7D2,#E3D6B8)}
+.map-placeholder .road{position:absolute;background:rgba(255,253,247,.7);border-radius:2px}
+.map-placeholder .road.h{height:2px;left:0;right:0}
+.map-placeholder .road.v{width:2px;top:0;bottom:0}
+.map-pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;gap:6px}
+.map-pin .dot{width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid #FDFAF3;box-shadow:0 0 0 4px rgba(184,145,90,.25),0 3px 8px rgba(0,0,0,.2)}
+.map-pin .label{background:rgba(36,56,46,.88);color:#F6F1E7;font-size:11px;letter-spacing:.14em;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.map-placeholder .tip{position:absolute;left:12px;bottom:10px;font-size:11px;color:#6B5F4B;letter-spacing:.08em;background:rgba(253,250,243,.85);padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
+
+.actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:13px 22px;font-size:14px;letter-spacing:.1em;transition:transform .18s ease,box-shadow .18s ease}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:var(--deep);color:#F6F1E7;box-shadow:0 4px 14px rgba(46,68,56,.24)}
+.btn-ghost{border:1px solid var(--gold);color:var(--deep);background:transparent}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+
+/* ===== 流程时间轴 ===== */
+.timeline{display:grid;grid-template-columns:64px 26px 1fr;gap:0;margin-top:40px}
+.tl-row{display:contents}
+.tl-time{text-align:right;padding:14px 10px 14px 0;font-family:var(--serif);font-weight:600;font-size:15px;color:var(--deep);font-variant-numeric:tabular-nums;align-self:center}
+.tl-axis{display:flex;flex-direction:column;align-items:center;align-self:stretch;position:relative}
+.tl-dot{width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--paper);margin-top:20px;box-shadow:0 0 0 2px var(--gold-soft);align-self:center}
+.tl-axis::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--line);transform:translateX(-50%)}
+.tl-axis{overflow:visible}
+.tl-content{padding:12px 0 12px 16px}
+.tl-content h4{font-size:15px;font-weight:600;color:#3E3629;letter-spacing:.06em}
+.tl-content p{font-size:13px;color:#7A6F5C;margin-top:3px;font-weight:300}
+.tl-row:first-child .tl-axis::before{top:20px}
+.tl-row:last-child .tl-axis::before{bottom:calc(100% - 20px)}
+
+/* ===== 相册 ===== */
+.gallery{background:#EFE7D6}
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
+.gallery-grid .g-tall{grid-column:1 / -1;aspect-ratio:3/1.6}
+.g-item{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#E0D5BE}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.g-item:hover img{transform:scale(1.04)}
+.g-badge{position:absolute;left:12px;bottom:12px;background:rgba(36,56,46,.78);color:#F6F1E7;font-size:11px;letter-spacing:.2em;padding:6px 12px;border-radius:999px}
+.gallery-note{text-align:center;font-size:13px;color:#7A6F5C;margin-top:20px;font-weight:300;letter-spacing:.08em}
+
+/* ===== 尾页 ===== */
+.finale{position:relative;background:var(--deep-2);color:#F6F1E7;text-align:center;overflow:hidden;padding:88px 26px calc(88px + env(safe-area-inset-bottom))}
+.finale::before{content:"";position:absolute;inset:0;opacity:.16;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath d='M200 300C120 250 60 210 60 150a90 90 0 0 1 180 0c0 60-60 100-40 150z' fill='none' stroke='%23B8915A' stroke-width='1'/%3E%3Ccircle cx='200' cy='150' r='3' fill='%23B8915A'/%3E%3C/svg%3E");background-position:center;background-size:420px}
+.finale .sec-eyebrow{color:var(--gold)}
+.finale-title{font-family:var(--serif);font-weight:600;font-size:clamp(22px,6vw,28px);margin-top:16px;letter-spacing:.14em}
+.finale-note{font-size:14px;font-weight:300;color:#D9D2C2;margin-top:14px;letter-spacing:.12em}
+.finale-date{font-family:var(--serif);letter-spacing:.3em;color:var(--gold);font-size:15px;margin-top:34px}
+.finale .btn-gold{margin-top:30px;background:var(--gold);color:var(--deep-2);box-shadow:0 6px 18px rgba(0,0,0,.3);display:inline-flex}
+.finale .copy-btn{margin-top:12px;background:transparent;border:1px solid rgba(246,241,231,.35);color:#F6F1E7;display:inline-flex}
+.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--deep);color:#F6F1E7;font-size:13px;letter-spacing:.08em;padding:10px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:all .35s ease;z-index:950;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:360px){
+  .timeline{grid-template-columns:56px 24px 1fr}
+  .cd-item{min-width:50px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .hero-bg{transform:none}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 音乐 -->
+<button id="musicBtn" class="music-btn" aria-pressed="false" aria-label="播放背景音乐">
+  <svg class="ic-play music-spin" viewBox="0 0 24 24"><path d="M9 18V6l10 6z" stroke-width="0"/><circle cx="12" cy="12" r="9" fill="none" stroke-width="1.6"/></svg>
+  <svg class="ic-pause" viewBox="0 0 24 24"><rect x="7" y="5" width="3.6" height="14" rx="1.2"/><rect x="13.4" y="5" width="3.6" height="14" rx="1.2"/></svg>
+</button>
+<audio id="bgm" src="assets/music.m4a" loop preload="none"></audio>
+
+<!-- ===== 首屏 ===== -->
+<header class="hero" id="top">
+  <div class="hero-bg" role="img" aria-label="黄昏中的欧式城堡婚礼庄园"></div>
+  <p class="hero-en fade-up d1">WE ARE GETTING MARRIED</p>
+  <div class="hero-line fade-up d2"></div>
+  <h1 class="hero-names fade-up d2"><span>丁俊杰</span><span class="and">·</span><span>向美倩</span></h1>
+  <p class="hero-date fade-up d3">2026年10月20日 · 星期二</p>
+  <div class="countdown fade-up d4" id="countdown" aria-label="距婚礼还有">
+    <div class="cd-item"><div class="cd-num" id="cd-d">00</div><div class="cd-label">天</div></div>
+    <div class="cd-item"><div class="cd-num" id="cd-h">00</div><div class="cd-label">时</div></div>
+    <div class="cd-item"><div class="cd-num" id="cd-m">00</div><div class="cd-label">分</div></div>
+    <div class="cd-item"><div class="cd-num" id="cd-s">00</div><div class="cd-label">秒</div></div>
+  </div>
+  <div class="hero-scroll">向下滑动<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M6 9l6 6 6-6"/></svg></div>
+</header>
+
+<!-- ===== 邀请语 ===== -->
+<section class="invite wrap">
+  <div class="reveal">
+    <p class="invite-q">
+      人生中最重要的这一天<br>
+      我们想把喜悦<em>亲手</em>交到你的手上<br>
+      感谢你一路的陪伴与见证<br>
+      愿于 <em>荣悦台天鹅堡</em>，与亲爱的你<br>
+      共赴这场温柔的约定
+    </p>
+    <p class="invite-sign"><span>丁俊杰</span> 携 <span>向美倩</span><br>敬邀</p>
+  </div>
+</section>
+
+<!-- ===== 时间地点 ===== -->
+<section class="where sec-pad" id="where">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">WHEN · WHERE</div>
+    <h2 class="sec-title reveal">婚礼时间与地点</h2>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="card-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.8"/></svg></div>
+        <div>
+          <h3>吉时</h3>
+          <p class="main">2026年10月20日 · 星期二</p>
+          <p class="sub">17:00 签到留影 &nbsp;·&nbsp; 18:08 仪式开始</p>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="card-ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+        <div>
+          <h3>场地</h3>
+          <p class="main">荣悦台天鹅堡婚礼庄园</p>
+          <p class="sub">安徽省芜湖市鸠江区罗兰小镇</p>
+        </div>
+      </div>
+    </div>
+    <!-- 本地化地图占位（无第三方瓦片） -->
+    <div class="map-placeholder reveal" aria-hidden="true">
+      <span class="road h" style="top:32%"></span>
+      <span class="road h" style="top:68%"></span>
+      <span class="road v" style="left:28%"></span>
+      <span class="road v" style="left:72%"></span>
+      <div class="map-pin">
+        <div class="dot"></div>
+        <div class="label">荣悦台天鹅堡</div>
+      </div>
+      <div class="tip">点击下方按钮，一键导航</div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-gold" href="https://uri.amap.com/navigation?to=118.460653%2C31.353296%2C%E8%8D%A3%E8%AF%BA%E5%8F%B0%E5%A4%A9%E9%B9%85%E5%A0%A1%E5%A9%9A%E7%A4%BC%E5%BA%84%E5%9B%AD&mode=car&coordinate=gaode" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg>一键导航到婚礼现场
+      </a>
+      <button class="btn btn-ghost" id="copyAddr">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>复制场地地址
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 流程 ===== -->
+<section class="sec-pad" id="program">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">PROGRAM</div>
+    <h2 class="sec-title reveal">当天安排</h2>
+    <div class="timeline reveal">
+      <div class="tl-row">
+        <div class="tl-time">17:00</div>
+        <div class="tl-axis"><span class="tl-dot"></span></div>
+        <div class="tl-content"><h4>签到留影</h4><p>入场签到，拍照留念</p></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">18:08</div>
+        <div class="tl-axis"><span class="tl-dot"></span></div>
+        <div class="tl-content"><h4>仪式开始</h4><p>交换誓约，见证幸福时刻</p></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">18:38</div>
+        <div class="tl-axis"><span class="tl-dot"></span></div>
+        <div class="tl-content"><h4>喜宴开席</h4><p>举杯共庆，把酒言欢</p></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">20:00</div>
+        <div class="tl-axis"><span class="tl-dot"></span></div>
+        <div class="tl-content"><h4>合影欢送</h4><p>合影留念，感谢光临</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 相册 ===== -->
+<section class="gallery sec-pad" id="gallery">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">MEMORY</div>
+    <h2 class="sec-title reveal">我们的纪念</h2>
+    <div class="gallery-grid">
+      <div class="g-item reveal g-tall">
+        <img src="assets/banquet.webp" alt="婚礼宴会厅布置" width="900" height="600" loading="lazy" decoding="async">
+        <span class="g-badge">宴会厅</span>
+      </div>
+      <div class="g-item reveal">
+        <img src="assets/detail.webp" alt="婚礼细节布置" width="800" height="800" loading="lazy" decoding="async">
+        <span class="g-badge">手捧花与戒指引</span>
+      </div>
+      <div class="g-item reveal">
+        <img src="assets/hero.webp" alt="婚礼庄园外景" width="900" height="1200" loading="lazy" decoding="async">
+        <span class="g-badge">天鹅堡庄园</span>
+      </div>
+    </div>
+    <p class="gallery-note">更多属于我们的照片，正在路上 · 敬请期待</p>
+  </div>
+</section>
+
+<!-- ===== 尾页 ===== -->
+<footer class="finale" id="bottom">
+  <div class="sec-eyebrow reveal">THANK YOU</div>
+  <h2 class="finale-title reveal">期待你的到来</h2>
+  <p class="finale-note reveal">愿这一天的喜悦，与你同享</p>
+  <p class="finale-date reveal">2026.10.20 · 荣悦台天鹅堡</p>
+  <a class="btn btn-gold reveal" href="https://uri.amap.com/navigation?to=118.460653%2C31.353296%2C%E8%8D%A3%E8%AF%BA%E5%8F%B0%E5%A4%A9%E9%B9%85%E5%A0%A1%E5%A9%9A%E7%A4%BC%E5%BA%84%E5%9B%AD&mode=car&coordinate=gaode" target="_blank" rel="noopener">前往婚礼现场</a>
+  <button class="btn copy-btn reveal" id="copyAddr2">复制地址</button>
+</footer>
+
+<div class="toast" id="toast">已复制，欢迎光临</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* 倒计时：2026-10-20 18:08 */
+  var target = new Date("2026-10-20T18:08:00+08:00").getTime();
+  var els = { d: document.getElementById("cd-d"), h: document.getElementById("cd-h"), m: document.getElementById("cd-m"), s: document.getElementById("cd-s") };
+  function pad(n){ return n < 10 ? "0" + n : "" + n; }
+  function tick(){
+    var diff = target - Date.now();
+    if (diff <= 0) { els.d.textContent = els.h.textContent = els.m.textContent = els.s.textContent = "00"; return; }
+    els.d.textContent = pad(Math.floor(diff / 864e5));
+    els.h.textContent = pad(Math.floor(diff / 36e5) % 24);
+    els.m.textContent = pad(Math.floor(diff / 6e4) % 60);
+    els.s.textContent = pad(Math.floor(diff / 1e3) % 60);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* 滚动渐显 */
+  var revealEls = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* 音乐开关：preload=none，首次点击才拉取；加载中按钮进入 loading 态 */
+  var btn = document.getElementById("musicBtn");
+  var bgm = document.getElementById("bgm");
+  var started = false;
+  btn.addEventListener("click", function(){
+    bgm.volume = 0.4;
+    if (!started) {
+      btn.classList.add("is-loading");
+      btn.setAttribute("aria-label", "音乐加载中");
+      bgm.play().then(function(){
+        started = true;
+        btn.classList.remove("is-loading");
+        btn.setAttribute("aria-label", "暂停背景音乐");
+        btn.setAttribute("aria-pressed","true");
+      }).catch(function(){
+        btn.classList.remove("is-loading");
+        btn.setAttribute("aria-label", "播放背景音乐");
+      });
+    } else if (!bgm.paused) {
+      bgm.pause();
+      btn.setAttribute("aria-pressed","false");
+      btn.setAttribute("aria-label", "播放背景音乐");
+    } else {
+      bgm.play().catch(function(){});
+      btn.setAttribute("aria-pressed","true");
+      btn.setAttribute("aria-label", "暂停背景音乐");
+    }
+  });
+
+  /* 复制地址 */
+  var ADDR = "安徽省芜湖市鸠江区罗兰小镇荣悦台天鹅堡婚礼庄园";
+  var toast = document.getElementById("toast");
+  var toastTimer = null;
+  function copyAddr(ev){
+    ev.preventDefault();
+    function done(){ toast.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 2000); }
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = ADDR; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch(e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(ADDR).then(done, fallback);
+    } else { fallback(); }
+  }
+  document.getElementById("copyAddr").addEventListener("click", copyAddr);
+  var copyBtn2 = document.getElementById("copyAddr2");
+  if (copyBtn2) copyBtn2.addEventListener("click", copyAddr);
+})();
+</script>
+</body>
+</html>
