@@ -31,6 +31,9 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+<!-- 互动弹幕云存储：Supabase（本地引入，实时推送） -->
+<script src="assets/supabase.js"></script>
+
 <style>
 :root{
   --paper:#F6F1E7;
@@ -191,6 +194,54 @@ section{position:relative}
 .finale .copy-btn{margin-top:12px;background:transparent;border:1px solid rgba(246,241,231,.35);color:#F6F1E7;display:inline-flex}
 .toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--deep);color:#F6F1E7;font-size:13px;letter-spacing:.08em;padding:10px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:all .35s ease;z-index:950;box-shadow:0 6px 20px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===== 弹幕祝福 ===== */
+.danmaku-layer{position:fixed;left:0;right:0;top:13%;height:42%;z-index:800;pointer-events:none;overflow:hidden}
+.dm-item{position:absolute;left:0;top:0;white-space:nowrap;font-size:15px;line-height:1;letter-spacing:.04em;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5),0 0 2px rgba(0,0,0,.55);will-change:transform;padding:6px 2px}
+.dm-item b{font-weight:600;margin-right:6px}
+.dm-c1{color:#F3E3C2}        /* 金 */
+.dm-c2{color:#F8DCE2}        /* 粉 */
+.dm-c3{color:#E6EFE6}        /* 淡绿 */
+.dm-c4{color:#FFFFFF}        /* 白 */
+.dm-seed{opacity:.92;font-weight:300}
+
+.dm-toggle{position:fixed;top:calc(66px + env(safe-area-inset-top));right:16px;z-index:900;width:44px;height:44px;border-radius:50%;background:rgba(246,241,231,.92);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(62,54,41,.12);transition:opacity .2s ease}
+.dm-toggle svg{width:21px;height:21px;fill:none;stroke:var(--deep);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.dm-toggle[aria-pressed="false"]{opacity:.5}
+
+.wish-card{margin:42px auto 0;max-width:440px;border:1px solid rgba(246,241,231,.22);border-radius:18px;padding:24px 20px;background:rgba(255,255,255,.05);text-align:left}
+.wish-card-title{font-family:var(--serif);font-size:17px;letter-spacing:.16em;color:var(--gold);text-align:center}
+.wish-card-sub{font-size:12px;color:#B9B1A1;margin-top:6px;letter-spacing:.08em;text-align:center}
+.wish-input{display:block;width:100%;margin-top:12px;background:rgba(255,255,255,.07);border:1px solid rgba(246,241,231,.2);border-radius:12px;padding:12px 14px;color:#F6F1E7;font-size:14px;font-family:inherit;transition:border-color .2s ease}
+.wish-input::placeholder{color:#9C9484}
+.wish-input:focus{outline:none;border-color:var(--gold)}
+.wish-send{margin-top:14px;width:100%;background:var(--gold);color:var(--deep-2);border-radius:999px;padding:13px;font-size:14px;letter-spacing:.14em;font-weight:600;transition:transform .18s ease,opacity .2s ease}
+.wish-send:active{transform:scale(.97)}
+.wish-send:disabled{opacity:.5}
+.wish-tip{font-size:11px;color:#9C9484;margin-top:8px;text-align:center;letter-spacing:.06em}
+
+/* ===== 管理员审核面板（#admin 唤起） ===== */
+.admin-panel{position:fixed;inset:0;z-index:1000;background:var(--deep-2);color:#F6F1E7;display:none;flex-direction:column}
+.admin-panel.is-open{display:flex}
+.admin-bar{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) 18px 12px;border-bottom:1px solid rgba(246,241,231,.15)}
+.admin-bar-title{font-family:var(--serif);letter-spacing:.18em;color:var(--gold);font-size:16px}
+.admin-bar-sp{display:flex;gap:4px}
+.admin-bar button{font-size:13px;color:#C9C1B0;letter-spacing:.08em;padding:6px 10px}
+.admin-body{flex:1;overflow-y:auto;padding:18px;width:100%;max-width:560px;margin:0 auto}
+.admin-login{max-width:340px;margin:14% auto 0}
+.admin-input{display:block;width:100%;margin-bottom:12px;background:rgba(255,255,255,.07);border:1px solid rgba(246,241,231,.2);border-radius:12px;padding:13px 14px;color:#F6F1E7;font-size:14px}
+.admin-input:focus{outline:none;border-color:var(--gold)}
+.admin-btn{width:100%;background:var(--gold);color:var(--deep-2);border-radius:999px;padding:13px;font-weight:600;letter-spacing:.12em;font-size:14px}
+.admin-err{color:#F0A8A8;font-size:13px;margin-top:10px;text-align:center;min-height:18px}
+.admin-count{font-size:12px;color:#9C9484;margin-bottom:14px;text-align:center}
+.admin-item{background:rgba(255,255,255,.05);border:1px solid rgba(246,241,231,.12);border-radius:14px;padding:14px;margin-bottom:12px}
+.admin-meta{font-size:12px;color:var(--gold);margin-bottom:6px;letter-spacing:.04em}
+.admin-text{font-size:15px;line-height:1.5;margin-bottom:12px;word-break:break-word}
+.admin-actions{display:flex;gap:10px}
+.admin-actions button{flex:1;border-radius:999px;padding:10px;font-size:13px;letter-spacing:.1em}
+.admin-pass{background:var(--gold);color:var(--deep-2);font-weight:600}
+.admin-del{background:transparent;border:1px solid rgba(240,168,168,.5);color:#F0A8A8}
+.admin-empty{text-align:center;color:#9C9484;font-size:14px;margin-top:70px;line-height:2}
 
 @media (max-width:360px){
   .timeline{grid-template-columns:56px 24px 1fr}
@@ -392,11 +443,38 @@ section{position:relative}
   <h2 class="finale-title reveal">期待你的到来</h2>
   <p class="finale-note reveal">愿这一天的喜悦，与你同享</p>
   <p class="finale-date reveal">2026.10.20 · 荣悦台天鹅堡</p>
-  <a class="btn btn-gold reveal" href="https://uri.amap.com/navigation?to=118.460653%2C31.353296%2C%E8%8D%A3%E8%AF%BA%E5%8F%B0%E5%A4%A9%E9%B9%85%E5%A0%A1%E5%A9%9A%E7%A4%BC%E5%BA%84%E5%9B%AD&mode=car&coordinate=gaode" target="_blank" rel="noopener">前往婚礼现场</a>
+  <a class="btn btn-gold reveal" href="https://uri.amap.com/navigation?to=118.460653%2C31.353296%2C%E8%8D%A3%E8%AF%BA%E5%8F%B0%E5%A4%A9%E9%B9%85%E5%A0%A1%E5%A9%9A%E7%A4%8E%E5%BA%84%E5%9B%AD&mode=car&coordinate=gaode" target="_blank" rel="noopener">前往婚礼现场</a>
   <button class="btn copy-btn reveal" id="copyAddr2">复制地址</button>
+
+  <div class="wish-card reveal">
+    <div class="wish-card-title">留下你的祝福</div>
+    <div class="wish-card-sub">祝福会化作弹幕，飘过每份请柬</div>
+    <input class="wish-input" id="wishName" maxlength="10" placeholder="你的昵称（选填）" autocomplete="off">
+    <input class="wish-input" id="wishText" maxlength="40" placeholder="写下对新人的祝福…" autocomplete="off">
+    <button class="wish-send" id="wishSend">发送祝福</button>
+    <div class="wish-tip" id="wishTip">新人会看到每一条祝福 ❤</div>
+  </div>
 </footer>
 
 <div class="toast" id="toast">已复制，欢迎光临</div>
+
+<!-- 弹幕层 + 开关 -->
+<div class="danmaku-layer" id="dmLayer" aria-hidden="true"></div>
+<button id="dmToggle" class="dm-toggle" aria-pressed="true" aria-label="关闭弹幕">
+  <svg viewBox="0 0 24 24"><path d="M21 11.5C21 15.6 17 19 12 19c-1.2 0-2.4-.2-3.5-.5L4 21l.6-3.7C3.6 16 3 13.8 3 11.5 3 7.4 7 4 12 4s9 3.4 9 7.5z"/></svg>
+</button>
+
+<!-- 管理员审核面板（URL 加 #admin 唤起） -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-bar">
+    <span class="admin-bar-title">弹幕审核</span>
+    <span class="admin-bar-sp">
+      <button id="adminLogout">退出账号</button>
+      <button id="adminClose">关闭</button>
+    </span>
+  </div>
+  <div class="admin-body" id="adminBody"></div>
+</div>
 
 <script>
 (function(){
@@ -573,6 +651,329 @@ section{position:relative}
   document.addEventListener("keydown", function(ev){
     if (ev.key === "Escape" && !lightbox.hidden) closeLightbox();
   });
+
+  /* ===== 弹幕祝福（Supabase 云存储，跨宾客实时共享） ===== */
+  (function(){
+    /* Supabase 凭证：URL + 浏览器端 publishable 公钥（禁止使用 service_role/secret） */
+    var SB_URL = "https://cymxqyeetleylzsarhsh.supabase.co";
+    var SB_KEY = "sb_publishable_3CbQfjbj8tAkm2vak0s7GA_VaHmOIw_";
+
+    var layer = document.getElementById("dmLayer");
+    var toggle = document.getElementById("dmToggle");
+    var nameInput = document.getElementById("wishName");
+    var textInput = document.getElementById("wishText");
+    var sendBtn = document.getElementById("wishSend");
+    var wishTip = document.getElementById("wishTip");
+
+    /* 种子祝福：云服务就绪前 / 云端尚无数据时保证页面氛围 */
+    var SEEDS = [
+      "百年好合，新婚快乐！",
+      "愿有岁月可回首，且以深情共白头",
+      "佳偶天成，鸾凤和鸣",
+      "愿你们相爱相守，岁岁年年",
+      "琴瑟和鸣，白首同心",
+      "恭喜恭喜，一定要幸福呀！",
+      "最美的童话，就是身边一直是你",
+      "甜甜蜜蜜，早生贵子～"
+    ];
+    var COLORS = ["dm-c1","dm-c2","dm-c3","dm-c4"];
+
+    var queue = [];                 /* 待播消息 {name, text, seed} */
+    var seen = {};                  /* 云端消息 id 去重 */
+    var lanes = [];                 /* 各轨道可复用时间戳 */
+    var enabled = true;
+    var LANE_H = 34;
+
+    /* 初始化 Supabase（浏览器端只用 publishable 公钥） */
+    var sb = null;
+    if (window.supabase && SB_KEY.indexOf("secret") === -1) {
+      try { sb = supabase.createClient(SB_URL, SB_KEY); }
+      catch (e) { sb = null; }
+    }
+    var ready = !!sb;
+
+    function buildLanes(){
+      /* 保留旧轨道占用时间戳（手机滚动触发 resize 时，清零会让新弹幕撞上在飞弹幕） */
+      var n = Math.max(3, Math.floor(layer.clientHeight / LANE_H));
+      var old = lanes;
+      lanes = [];
+      for (var i=0;i<n;i++) lanes.push(i < old.length ? old[i] : 0);
+    }
+    buildLanes();
+    window.addEventListener("resize", buildLanes);
+
+    function enqueue(name, text, seed){
+      text = (text || "").trim();
+      if (!text) return;
+      queue.push({ name:(name || "").trim(), text:text, seed:!!seed });
+    }
+
+    /* 预估弹幕宽度、随机速度，返回时长参数（供轨道复用计算） */
+    function plan(item){
+      var vw = layer.clientWidth;
+      var chars = item.text.length + (item.name ? item.name.length : 0);
+      var estW = chars * 15 + (item.name ? 6 : 0) + 20;
+      var speed = 58 + Math.random() * 26;             /* px/秒，6~10 秒飘过 */
+      return { speed:speed, estW:estW,
+               duration:(vw + estW) / speed * 1000,
+               enterMs:estW / speed * 1000 };
+    }
+
+    function fire(item, p, laneIdx){
+      var el = document.createElement("div");
+      el.className = "dm-item " + COLORS[Math.floor(Math.random()*COLORS.length)] + (item.seed ? " dm-seed" : "");
+      el.style.top = (laneIdx * LANE_H) + "px";
+      if (item.name) {
+        var b = document.createElement("b");
+        b.textContent = item.name;
+        el.appendChild(b);
+      }
+      var span = document.createElement("span");
+      span.textContent = item.text;                   /* textContent 防 XSS */
+      el.appendChild(span);
+      layer.appendChild(el);
+
+      var w = el.offsetWidth;
+      var vw = layer.clientWidth;
+      var anim = el.animate(
+        [ { transform:"translateX(" + vw + "px)" },
+          { transform:"translateX(-" + w + "px)" } ],
+        { duration:(vw + w) / p.speed * 1000, easing:"linear" }
+      );
+      anim.onfinish = function(){ el.remove(); };
+      /* 返回真实入场耗时（弹幕尾部完全进入屏幕所需时间） */
+      return w / p.speed * 1000;
+    }
+
+    /* 轨道调度：每 250ms 尝试把队首放入空闲轨道，杜绝同轨重叠 */
+    setInterval(function(){
+      if (!enabled || document.hidden || !queue.length) return;
+      var now = Date.now();
+      var lane = -1;
+      for (var i=0;i<lanes.length;i++){
+        if (lanes[i] <= now) { lane = i; break; }
+      }
+      if (lane < 0) return;
+      var item = queue.shift();
+      var p = plan(item);
+      var realEnterMs = fire(item, p, lane);
+      lanes[lane] = now + realEnterMs + 450;       /* 尾部完全进入后再放行 + 安全间隔 */
+    }, 250);
+
+    /* 云端：初始拉取最近 40 条（按时间正序依次飘入） */
+    function ingest(rows){
+      if (!rows || !rows.length) return;
+      rows.slice().reverse().forEach(function(r){
+        if (seen[r.id]) return;
+        seen[r.id] = 1;
+        enqueue(r.name || "", r.text || "", false);
+      });
+    }
+    if (sb) {
+      sb.from("blessings").select("id,name,text,status")
+        .eq("status","approved")
+        .order("created_at", { ascending:false }).limit(40)
+        .then(function(res){ if (!res.error) ingest(res.data); })
+        .catch(function(){});
+
+      /* 实时推送：宾客端只接收“审核通过”的弹幕（RLS 也会过滤，双重保险） */
+      sb.channel("blessings-danmaku")
+        .on("postgres_changes",
+            { event:"*", schema:"public", table:"blessings" },
+            function(payload){
+              var r = payload.new;
+              if (!r || r.status !== "approved" || seen[r.id]) return;
+              seen[r.id] = 1;
+              enqueue(r.name || "", r.text || "", false);
+            })
+        .subscribe();
+    }
+
+    /* 发送祝福（10 秒冷却防刷，40 字以内） */
+    var COOLDOWN = 10000;
+    sendBtn.addEventListener("click", function(){
+      var text = textInput.value.trim();
+      if (!text) { wishTip.textContent = "先写点祝福内容吧～"; return; }
+      if (!ready) { wishTip.textContent = "祝福服务正在连接，请稍后再试"; return; }
+      var last = 0;
+      try { last = +(localStorage.getItem("lastWish") || 0); } catch (e) {}
+      if (Date.now() - last < COOLDOWN) { wishTip.textContent = "发得太快啦，稍后再试～"; return; }
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = "发送中…";
+      var name = nameInput.value.trim();
+      sb.from("blessings").insert({ name:name, text:text })
+        .then(function(res){
+          if (res.error) throw res.error;
+          /* 需审核后才公开展示，故本地不立即飘过 */
+          try { localStorage.setItem("lastWish", String(Date.now())); } catch (e) {}
+          textInput.value = "";
+          wishTip.textContent = "祝福已送达，谢谢 ❤";
+        })
+        .catch(function(){ wishTip.textContent = "发送失败，请检查网络后重试"; })
+        .then(function(){ sendBtn.disabled = false; sendBtn.textContent = "发送祝福"; });
+    });
+
+    /* 种子弹幕依次入场 */
+    var seedIdx = 0;
+    (function seedLoop(){
+      if (seedIdx >= SEEDS.length) return;
+      enqueue("", SEEDS[seedIdx++], true);
+      setTimeout(seedLoop, 2400 + Math.random() * 2200);
+    })();
+
+    /* 弹幕开关：关闭时清屏并清空待播队列 */
+    function clearAll(){
+      layer.querySelectorAll(".dm-item").forEach(function(el){ el.remove(); });
+    }
+    toggle.addEventListener("click", function(){
+      enabled = !enabled;
+      toggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+      toggle.setAttribute("aria-label", enabled ? "关闭弹幕" : "开启弹幕");
+      if (!enabled) { clearAll(); queue.length = 0; }
+    });
+  })();
+
+  /* ===== 管理员审核面板（#admin 唤起） ===== */
+  (function(){
+    if (!window.supabase) return;
+    var SB_URL = "https://cymxqyeetleylzsarhsh.supabase.co";
+    var SB_KEY = "sb_publishable_3CbQfjbj8tAkm2vak0s7GA_VaHmOIw_";
+    var c = supabase.createClient(SB_URL, SB_KEY);
+
+    var panel = document.getElementById("adminPanel");
+    var body = document.getElementById("adminBody");
+    var loggedIn = false;
+    var rows = [];
+    var listChannel = null;
+
+    function openPanel(){
+      panel.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      refresh();
+    }
+    function closePanel(){
+      panel.classList.remove("is-open");
+      document.body.style.overflow = "";
+      if (location.hash === "#admin") history.replaceState(null,"",location.pathname+location.search);
+    }
+    function refresh(){ if (loggedIn) renderList(); else renderLogin(); }
+
+    window.addEventListener("hashchange", function(){
+      if (location.hash === "#admin") openPanel();
+      else if (panel.classList.contains("is-open")) closePanel();
+    });
+
+    function renderLogin(){
+      body.innerHTML = "";
+      var w = document.createElement("div");
+      w.className = "admin-login";
+      w.innerHTML =
+        '<input class="admin-input" id="adEmail" type="email" placeholder="管理员邮箱" autocomplete="username">' +
+        '<input class="admin-input" id="adPass" type="password" placeholder="密码" autocomplete="current-password">' +
+        '<button class="admin-btn" id="adLoginBtn">登 录</button>' +
+        '<div class="admin-err" id="adErr"></div>';
+      body.appendChild(w);
+      w.querySelector("#adLoginBtn").addEventListener("click", doLogin);
+      w.querySelector("#adPass").addEventListener("keydown", function(e){ if (e.key === "Enter") doLogin(); });
+    }
+
+    function doLogin(){
+      var email = document.getElementById("adEmail").value.trim();
+      var pass = document.getElementById("adPass").value;
+      var errEl = document.getElementById("adErr");
+      if (!email || !pass) { errEl.textContent = "请输入邮箱和密码"; return; }
+      errEl.textContent = "";
+      c.auth.signInWithPassword({ email:email, password:pass }).then(function(res){
+        if (res.error) { errEl.textContent = res.error.message; return; }
+        loggedIn = true;
+        renderList();
+        listenNew();
+      });
+    }
+
+    function renderList(){
+      body.innerHTML = '<div class="admin-count">加载中…</div>';
+      c.from("blessings").select("*").eq("status","pending").order("created_at",{ascending:true})
+        .then(function(res){
+          if (res.error) {
+            loggedIn = false; renderLogin();
+            var e = document.getElementById("adErr");
+            if (e) e.textContent = "登录已失效，请重新登录";
+            return;
+          }
+          rows = res.data || [];
+          paint();
+        });
+    }
+
+    function fmt(iso){
+      return new Date(iso).toLocaleString("zh-CN",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"});
+    }
+    function paint(){
+      body.innerHTML = "";
+      var cnt = document.createElement("div");
+      cnt.className = "admin-count";
+      cnt.textContent = "待审核 " + rows.length + " 条";
+      body.appendChild(cnt);
+      if (!rows.length) {
+        var em = document.createElement("div");
+        em.className = "admin-empty";
+        em.innerHTML = "暂无待审核祝福<br>新祝福到达时会自动出现";
+        body.appendChild(em);
+        return;
+      }
+      rows.forEach(function(r){
+        var item = document.createElement("div"); item.className = "admin-item";
+        var meta = document.createElement("div"); meta.className = "admin-meta";
+        meta.textContent = (r.name || "匿名宾客") + " · " + fmt(r.created_at);
+        var tx = document.createElement("div"); tx.className = "admin-text"; tx.textContent = r.text;
+        var acts = document.createElement("div"); acts.className = "admin-actions";
+        var ok = document.createElement("button"); ok.className = "admin-pass"; ok.textContent = "通 过";
+        ok.addEventListener("click", function(){ approve(r.id); });
+        var del = document.createElement("button"); del.className = "admin-del"; del.textContent = "删 除";
+        del.addEventListener("click", function(){ remove(r.id); });
+        acts.appendChild(ok); acts.appendChild(del);
+        item.appendChild(meta); item.appendChild(tx); item.appendChild(acts);
+        body.appendChild(item);
+      });
+    }
+    function approve(id){
+      c.from("blessings").update({ status:"approved" }).eq("id",id).then(function(res){
+        if (!res.error) { rows = rows.filter(function(r){ return r.id !== id; }); paint(); }
+      });
+    }
+    function remove(id){
+      c.from("blessings").delete().eq("id",id).then(function(res){
+        if (!res.error) { rows = rows.filter(function(r){ return r.id !== id; }); paint(); }
+      });
+    }
+
+    /* 实时：宾客新提交的祝福即时出现在审核列表 */
+    function listenNew(){
+      if (listChannel) return;
+      listChannel = c.channel("admin-incoming")
+        .on("postgres_changes", { event:"INSERT", schema:"public", table:"blessings" }, function(){
+          if (panel.classList.contains("is-open")) renderList();
+        }).subscribe();
+    }
+
+    document.getElementById("adminLogout").addEventListener("click", function(){
+      c.auth.signOut().then(function(){
+        loggedIn = false;
+        if (listChannel) { c.removeChannel(listChannel); listChannel = null; }
+        renderLogin();
+      });
+    });
+    document.getElementById("adminClose").addEventListener("click", closePanel);
+
+    /* 恢复登录态并响应初始 #admin */
+    c.auth.getSession().then(function(res){
+      loggedIn = !!(res.data.session && res.data.session.user);
+      if (loggedIn) listenNew();
+      if (location.hash === "#admin") openPanel();
+    });
+  })();
 
   /* Service Worker：二次访问走本地缓存，弱网秒开 */
   if ("serviceWorker" in navigator) {
