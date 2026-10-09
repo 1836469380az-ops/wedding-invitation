@@ -687,6 +687,7 @@ section{position:relative}
 
     var queue = [];                 /* 待播消息 {name, text, seed} */
     var seen = {};                  /* 云端消息 id 去重 */
+    var echoed = {};                /* 本人已本地飘过的 client_id（审核通过后不重复） */
     var lanes = [];                 /* 各轨道可复用时间戳 */
     var enabled = true;
     var LANE_H = 34;
@@ -786,6 +787,8 @@ section{position:relative}
             function(payload){
               var r = payload.new;
               if (!r || r.status !== "approved" || seen[r.id]) return;
+              /* 本人发送时已本地飘过，审核通过后不再重复 */
+              if (r.client_id && echoed[r.client_id]) return;
               seen[r.id] = 1;
               enqueue(r.name || "", r.text || "", false);
             })
@@ -805,10 +808,15 @@ section{position:relative}
       sendBtn.disabled = true;
       sendBtn.textContent = "发送中…";
       var name = nameInput.value.trim();
-      sb.from("blessings").insert({ name:name, text:text })
+      var token = (window.crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : "c-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,10);
+      sb.from("blessings").insert({ name:name, text:text, client_id:token })
         .then(function(res){
           if (res.error) throw res.error;
-          /* 需审核后才公开展示，故本地不立即飘过 */
+          /* 自己屏幕立刻飘过；其他人需等审核通过后才看得到 */
+          echoed[token] = 1;
+          enqueue(name, text, false);
           try { localStorage.setItem("lastWish", String(Date.now())); } catch (e) {}
           textInput.value = "";
           wishTip.textContent = "祝福已送达，谢谢 ❤";
