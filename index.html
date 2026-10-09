@@ -652,12 +652,19 @@ section{position:relative}
     if (ev.key === "Escape" && !lightbox.hidden) closeLightbox();
   });
 
+  /* ===== Supabase 共享客户端单例（弹幕与审核面板共用，避免多实例） ===== */
+  var weddingSB = null;
+  (function(){
+    var SB_URL = "https://cymxqyeetleylzsarhsh.supabase.co";
+    var SB_KEY = "sb_publishable_3CbQfjbj8tAkm2vak0s7GA_VaHmOIw_";   /* 仅可用浏览器端 publishable 公钥，禁止 service_role/secret */
+    if (window.supabase && SB_KEY.indexOf("secret") === -1 && SB_KEY.indexOf("service") === -1) {
+      try { weddingSB = supabase.createClient(SB_URL, SB_KEY); }
+      catch (e) { weddingSB = null; }
+    }
+  })();
+
   /* ===== 弹幕祝福（Supabase 云存储，跨宾客实时共享） ===== */
   (function(){
-    /* Supabase 凭证：URL + 浏览器端 publishable 公钥（禁止使用 service_role/secret） */
-    var SB_URL = "https://cymxqyeetleylzsarhsh.supabase.co";
-    var SB_KEY = "sb_publishable_3CbQfjbj8tAkm2vak0s7GA_VaHmOIw_";
-
     var layer = document.getElementById("dmLayer");
     var toggle = document.getElementById("dmToggle");
     var nameInput = document.getElementById("wishName");
@@ -684,12 +691,8 @@ section{position:relative}
     var enabled = true;
     var LANE_H = 34;
 
-    /* 初始化 Supabase（浏览器端只用 publishable 公钥） */
-    var sb = null;
-    if (window.supabase && SB_KEY.indexOf("secret") === -1) {
-      try { sb = supabase.createClient(SB_URL, SB_KEY); }
-      catch (e) { sb = null; }
-    }
+    /* 使用共享 Supabase 客户端 */
+    var sb = weddingSB;
     var ready = !!sb;
 
     function buildLanes(){
@@ -836,10 +839,8 @@ section{position:relative}
 
   /* ===== 管理员审核面板（#admin 唤起） ===== */
   (function(){
-    if (!window.supabase) return;
-    var SB_URL = "https://cymxqyeetleylzsarhsh.supabase.co";
-    var SB_KEY = "sb_publishable_3CbQfjbj8tAkm2vak0s7GA_VaHmOIw_";
-    var c = supabase.createClient(SB_URL, SB_KEY);
+    var c = weddingSB;               /* 复用共享客户端，保证与弹幕侧登录态一致 */
+    if (!c) return;
 
     var panel = document.getElementById("adminPanel");
     var body = document.getElementById("adminBody");
