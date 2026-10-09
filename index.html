@@ -25,6 +25,12 @@
 <!-- 首屏 LCP：hero 背景图优先加载 -->
 <link rel="preload" as="image" href="assets/hero.webp" fetchpriority="high">
 
+<!-- 真实地图：Leaflet + 高德矢量瓦片（无需 key） -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 <style>
 :root{
   --paper:#F6F1E7;
@@ -110,18 +116,17 @@ section{position:relative}
 .card .main{font-size:16px;font-weight:500;margin-top:6px;color:#3E3629}
 .card .sub{font-size:13px;color:#7A6F5C;margin-top:4px;font-weight:300}
 
-/* 本地化地图占位：纯装饰，无第三方瓦片 */
-.map-placeholder{margin-top:16px;border-radius:14px;border:1px solid var(--line);height:220px;position:relative;overflow:hidden;background:
-  radial-gradient(circle at 30% 40%, rgba(184,145,90,.10), transparent 60%),
-  radial-gradient(circle at 75% 70%, rgba(46,68,56,.08), transparent 55%),
-  linear-gradient(135deg,#EFE7D2,#E3D6B8)}
-.map-placeholder .road{position:absolute;background:rgba(255,253,247,.7);border-radius:2px}
-.map-placeholder .road.h{height:2px;left:0;right:0}
-.map-placeholder .road.v{width:2px;top:0;bottom:0}
-.map-pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;gap:6px}
-.map-pin .dot{width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid #FDFAF3;box-shadow:0 0 0 4px rgba(184,145,90,.25),0 3px 8px rgba(0,0,0,.2)}
-.map-pin .label{background:rgba(36,56,46,.88);color:#F6F1E7;font-size:11px;letter-spacing:.14em;padding:5px 10px;border-radius:999px;white-space:nowrap}
-.map-placeholder .tip{position:absolute;left:12px;bottom:10px;font-size:11px;color:#6B5F4B;letter-spacing:.08em;background:rgba(253,250,243,.85);padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
+/* 真实地图容器 */
+.map-wrap{margin-top:16px;border-radius:14px;border:1px solid var(--line);height:220px;overflow:hidden;position:relative;background:#EFE7D2}
+#map{width:100%;height:100%}
+.map-wrap .tip{position:absolute;left:12px;bottom:10px;z-index:500;font-size:11px;color:#6B5F4B;letter-spacing:.08em;background:rgba(253,250,243,.85);padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
+/* 自定义金色地标 */
+.wed-pin{width:30px;height:30px;border-radius:50% 50% 50% 0;background:var(--gold);transform:rotate(-45deg);border:3px solid #FDFAF3;box-shadow:0 3px 10px rgba(0,0,0,.3);position:relative}
+.wed-pin::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:#FDFAF3}
+.leaflet-popup-content-wrapper{border-radius:10px}
+.leaflet-popup-content{margin:8px 12px;font-size:13px;color:var(--deep);text-align:center}
+.leaflet-container{font-family:inherit;background:#EFE7D2}
+.leaflet-control-attribution{font-size:9px;background:rgba(253,250,243,.7)!important}
 
 .actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:13px 22px;font-size:14px;letter-spacing:.1em;transition:transform .18s ease,box-shadow .18s ease}
@@ -260,16 +265,9 @@ section{position:relative}
         </div>
       </div>
     </div>
-    <!-- 本地化地图占位（无第三方瓦片） -->
-    <div class="map-placeholder reveal" aria-hidden="true">
-      <span class="road h" style="top:32%"></span>
-      <span class="road h" style="top:68%"></span>
-      <span class="road v" style="left:28%"></span>
-      <span class="road v" style="left:72%"></span>
-      <div class="map-pin">
-        <div class="dot"></div>
-        <div class="label">荣悦台天鹅堡</div>
-      </div>
+    <!-- 真实地图：Leaflet + 高德矢量瓦片 -->
+    <div class="map-wrap reveal">
+      <div id="map"></div>
       <div class="tip">点击下方按钮，一键导航</div>
     </div>
     <div class="actions">
@@ -418,6 +416,42 @@ section{position:relative}
   }
   tick();
   setInterval(tick, 1000);
+
+  /* 真实地图：Leaflet + 高德矢量瓦片（无需 key，GCJ-02 坐标与瓦片一致） */
+  var MAP_LAT = 31.353296, MAP_LNG = 118.460653;
+  if (window.L && document.getElementById("map")) {
+    var map = L.map("map", {
+      center: [MAP_LAT, MAP_LNG],
+      zoom: 15,
+      zoomControl: false,
+      attributionControl: true,
+      scrollWheelZoom: false
+    });
+    L.tileLayer("https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}", {
+      subdomains: ["1","2","3","4"],
+      maxZoom: 18,
+      attribution: "&copy; 高德地图"
+    }).addTo(map);
+    var pinIcon = L.divIcon({
+      className: "",
+      html: '<div class="wed-pin"></div>',
+      iconSize: [30, 30],
+      iconAnchor: [15, 30]
+    });
+    L.marker([MAP_LAT, MAP_LNG], { icon: pinIcon })
+      .addTo(map)
+      .bindPopup("<b>荣悦台天鹅堡婚礼庄园</b>");
+    /* 首次进入视口时修正尺寸（防止 reveal 隐藏期间瓦片未铺满） */
+    var mapWrap = document.querySelector(".map-wrap");
+    if (mapWrap && "IntersectionObserver" in window) {
+      var mio = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting) { map.invalidateSize(); mio.disconnect(); }
+        });
+      }, { threshold: 0.1 });
+      mio.observe(mapWrap);
+    }
+  }
 
   /* 滚动渐显 */
   var revealEls = document.querySelectorAll(".reveal");
