@@ -25,12 +25,6 @@
 <!-- 首屏 LCP：hero 背景图优先加载 -->
 <link rel="preload" as="image" href="assets/hero.webp" fetchpriority="high">
 
-<!-- 真实地图：Leaflet + 高德矢量瓦片（无需 key） -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
 <!-- 互动弹幕云存储：Supabase（本地引入，实时推送） -->
 <script src="assets/supabase.js"></script>
 
@@ -495,41 +489,7 @@ section{position:relative}
   tick();
   setInterval(tick, 1000);
 
-  /* 真实地图：Leaflet + 高德矢量瓦片（无需 key，GCJ-02 坐标与瓦片一致） */
-  var MAP_LAT = 31.353296, MAP_LNG = 118.460653;
-  if (window.L && document.getElementById("map")) {
-    var map = L.map("map", {
-      center: [MAP_LAT, MAP_LNG],
-      zoom: 15,
-      zoomControl: false,
-      attributionControl: true,
-      scrollWheelZoom: false
-    });
-    L.tileLayer("https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}", {
-      subdomains: ["1","2","3","4"],
-      maxZoom: 18,
-      attribution: "&copy; 高德地图"
-    }).addTo(map);
-    var pinIcon = L.divIcon({
-      className: "",
-      html: '<div class="wed-pin"></div>',
-      iconSize: [30, 30],
-      iconAnchor: [15, 30]
-    });
-    L.marker([MAP_LAT, MAP_LNG], { icon: pinIcon })
-      .addTo(map)
-      .bindPopup("<b>荣悦台天鹅堡婚礼庄园</b>");
-    /* 首次进入视口时修正尺寸（防止 reveal 隐藏期间瓦片未铺满） */
-    var mapWrap = document.querySelector(".map-wrap");
-    if (mapWrap && "IntersectionObserver" in window) {
-      var mio = new IntersectionObserver(function(entries){
-        entries.forEach(function(en){
-          if (en.isIntersecting) { map.invalidateSize(); mio.disconnect(); }
-        });
-      }, { threshold: 0.1 });
-      mio.observe(mapWrap);
-    }
-  }
+  /* 地图改由 assets/map-lazy.js 按需加载（滚动接近时才拉取 Leaflet 并初始化） */
 
   /* 滚动渐显 */
   var revealEls = document.querySelectorAll(".reveal");
@@ -990,5 +950,8 @@ section{position:relative}
   }
 })();
 </script>
+
+<!-- 地图按需加载：滚动接近地图区时才下载 Leaflet，加快首屏 -->
+<script src="assets/map-lazy.js?v=1" defer></script>
 </body>
 </html>
