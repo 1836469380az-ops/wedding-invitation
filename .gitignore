@@ -8,3 +8,6 @@
 
 # macOS
 .DS_Store
+
+# 公众号上传用 jpg 中间产物（源文件为 webp，不入库）
+assets/mp/
